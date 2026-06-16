@@ -457,6 +457,22 @@ html.dark .logo-path {
   user-select: none;
 }
 
+.stroke-text-1\.5 {
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #aaa;
+  color: transparent;
+}
+
+.stroke-text-2 {
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #aaa;
+  color: transparent;
+}
+
+.stroke-text-hex-aaa {
+  -webkit-text-stroke-color: #aaa;
+}
+
 html.dark .stroke-text {
   opacity: 0.2;
 }
@@ -538,6 +554,102 @@ html.dark .stroke-text {
   justify-content: center;
   font-size: 0.875rem;
   color: #888;
+}
+
+.photo-tags {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.photo-tool {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  color: #222;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+html.dark .photo-tool {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee;
+}
+
+/* ========== 项目分类目录（侧边栏） ========== */
+.project-toc,
+.bookmarks-toc {
+  position: fixed;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 30;
+  display: none;
+  font-size: 0.75rem;
+  max-width: 180px;
+  border-left: 1px solid #8883;
+  padding-left: 0.75rem;
+}
+
+@media (min-width: 1280px) {
+  .project-toc,
+  .bookmarks-toc {
+    display: block;
+  }
+}
+
+.project-toc-anchor,
+.bookmarks-toc-anchor {
+  position: absolute;
+  left: -1.1rem;
+  top: 0;
+  color: #888;
+}
+
+.project-toc ul,
+.bookmarks-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-toc li,
+.bookmarks-toc li {
+  padding-left: 0;
+  margin: 0.4rem 0;
+}
+
+.project-toc li::before,
+.bookmarks-toc li::before {
+  display: none;
+}
+
+.project-toc a,
+.bookmarks-toc a {
+  color: inherit;
+  opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.project-toc a:hover,
+.bookmarks-toc a:hover {
+  opacity: 1;
+}
+
+@media print {
+  .project-toc,
+  .bookmarks-toc {
+    display: none;
+  }
 }
 
 /* ========== Sponsors 卡片 ========== */

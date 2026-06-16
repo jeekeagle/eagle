@@ -1,15 +1,27 @@
 <script setup lang="ts">
+import MagicLink from '../components/MagicLink.vue'
+
 const year = new Date().getFullYear()
 
-// 占位链接（用户后续可替换）
+// 社交 / 工作 / 项目 / 维护 —— 都用 MagicLink 风格胶囊
+const socials = [
+  { name: 'GitHub', icon: 'i-simple-icons-github', href: 'https://github.com/jeekeagle' },
+  { name: '知乎', icon: 'i-simple-icons-zhihu', href: 'https://zhihu.com' },
+  { name: '微博', icon: 'i-simple-icons-sinaweibo', href: 'https://weibo.com' },
+  { name: 'X', icon: 'i-ri-twitter-x-fill', href: 'https://x.com' },
+  { name: 'B站', icon: 'i-simple-icons-bilibili', href: 'https://space.bilibili.com' },
+]
+
+// 工具 / 站点占位
 const links = {
-  here: '#',            // 这里（项目页）
-  photography: '/#/photos', // 摄影
-  photosPage: '/#/photos',  // 这个页面（照片页）
-  gear: '/#/use',       // 常用工具
-  stack: '/#/use',      // 技术栈
-  skillsHub: '#',       // SkillsHub（未建）
-  fairytale: '#',       // 童话小镇（未建）
+  projects: '/#/projects',
+  bookmarks: '/#/bookmarks',
+  websites: '/#/websites',
+  use: '/#/use',
+  photos: '/#/photos',
+  paintings: '/#/paintings',
+  skillsHub: '#',
+  fairytale: '#',
 }
 </script>
 
@@ -29,6 +41,7 @@ const links = {
       </p>
 
       <p>
+        构思酷点子并把它们变成现实，是我的热情所在。
         我热衷于打造让自己和他人更高效、享受过程的工具。
       </p>
 
@@ -36,29 +49,29 @@ const links = {
         自我定位是一名 <abbr title="One-Person Company">OPC</abbr>，
         借助 Agent 的力量，一个人就能完成过去需要团队才能做的事情。
         你可以在
-        <a :href="links.here" class="font-semibold"><strong>这里</strong></a>
+        <a :href="links.projects" class="font-semibold"><strong>这里</strong></a>
         看到我的全部项目。
       </p>
 
       <p>
         我会经常写
-        <a href="/#/posts">博客文章</a>，
+        <a href="/#/posts" class="!border-none">博客文章</a>，
         聊聊 AI、Agent 架构、个人知识管理和个人成长的那些事。
         我还喜欢看书和写书，把思考过程变成可以回溯的资产。
       </p>
 
       <p>
         编程之外，我也喜欢
-        <a :href="links.photography" class="font-semibold"><strong>摄影</strong></a>
+        <a :href="links.photos" class="font-semibold"><strong>摄影</strong></a>
         、旅行和 AI 画画。照片会发到
-        <a :href="links.photosPage" class="font-semibold"><strong>这个页面</strong></a>。
+        <a :href="links.photos" class="font-semibold"><strong>这个页面</strong></a>。
       </p>
 
       <p>
         如果你感兴趣，可以看看我的
-        <a :href="links.gear" class="font-semibold"><strong>常用工具</strong></a>
+        <a :href="links.use" class="font-semibold"><strong>常用工具</strong></a>
         /
-        <a :href="links.stack" class="font-semibold"><strong>技术栈</strong></a>
+        <a :href="links.use" class="font-semibold"><strong>技术栈</strong></a>
         /
         <a :href="links.skillsHub" class="font-semibold"><strong>SkillsHub</strong></a>
         。
@@ -78,30 +91,15 @@ const links = {
 
       <hr />
 
-      <p>在以下平台找我</p>
+      <p class="op-50 italic">在以下平台找我</p>
       <p class="mt--2! flex flex-wrap gap-2">
-        <a href="https://github.com/jeekeagle" target="_blank" rel="noopener">
-          <span class="op75 i-simple-icons-github"></span>
-          GitHub
-        </a>
-        <a href="https://zhihu.com" target="_blank" rel="noopener">
-          <span class="op75 i-simple-icons-zhihu"></span>
-          知乎
-        </a>
-        <a href="https://weibo.com" target="_blank" rel="noopener">
-          <span class="op75 i-simple-icons-sinaweibo"></span>
-          微博
-        </a>
-        <a href="https://x.com" target="_blank" rel="noopener">
-          <span class="op75 i-ri-twitter-x-fill"></span>
-          X
-        </a>
-        <a href="https://space.bilibili.com" target="_blank" rel="noopener">
-          <span class="op75 i-simple-icons-bilibili"></span>
-          B站
-        </a>
+        <MagicLink
+          v-for="s in socials"
+          :key="s.name"
+          :href="s.href"
+          :name="s.name"
+        />
       </p>
-
       <p>
         或者发邮件到
         <span class="font-mono">hi<span class="i-carbon-at"></span>yiguo.dev</span>

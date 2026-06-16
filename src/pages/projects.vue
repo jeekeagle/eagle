@@ -1,73 +1,83 @@
 <script setup lang="ts">
-import { currentFocus, projects } from '../data/projects'
+import { computed } from 'vue'
+import { projectGroups } from '../data/projects'
 import ProjectCard from '../components/ProjectCard.vue'
+
+const groupKeys = computed(() => Object.keys(projectGroups))
+
+function slug(name: string) {
+  return name.toLowerCase().replace(/[\s\\/]+/g, '-')
+}
 </script>
 
 <template>
-  <div class="text-center prose m-auto mb-8">
-    <h1 class="mb-0 slide-enter-50">项目</h1>
-  </div>
-
   <article>
     <div>
       <div class="max-w-300 mx-auto">
         <p class="text-center mt--6 mb-5 op50 text-lg italic">
-          我创建或正在维护的项目。
+          我创建、维护或重度依赖的项目。
         </p>
 
         <div class="prose pb-5 mx-auto mt-10 text-center">
-          <div class="flex gap-2 justify-center">
+          <div class="flex gap-2 justify-center flex-wrap">
             <a
-              href="https://github.com"
+              href="https://github.com/jeekeagle"
               target="_blank"
               class="btn-blue inline-block"
             >
-              <i class="i-ph-github-logo-duotone"></i> GitHub
+              <i class="i-uil-github-alt"></i> GitHub
             </a>
             <a href="#" class="btn-amber inline-block">
               <i class="i-ph-rocket-launch-duotone"></i> 最近发布
             </a>
             <a href="#" class="btn-lime inline-block">
-              <i class="i-ph-cow-duotone"></i> 旁支清单
+              <i class="i-ph-star-duotone"></i> 按 Star 排序
             </a>
           </div>
           <hr />
         </div>
 
-        <!-- 当前焦点 -->
+        <!-- 分类分组 -->
         <div
-          class="select-none relative h-18 mt-5 pointer-events-none slide-enter"
-          :style="{ '--enter-stage': -2, '--enter-step': '60ms' }"
+          v-for="(key, cidx) in groupKeys"
+          :key="key"
+          :id="slug(key)"
+          slide-enter
+          :style="{ '--enter-stage': cidx + 1, '--enter-step': '60ms' }"
         >
-          <span
-            class="text-5em color-transparent absolute left--1rem top-0rem font-bold leading-1em stroke-text-1.5 stroke-text-hex-aaa op35 dark:op20"
-          >当前焦点</span>
-        </div>
-        <div
-          class="project-grid py-2 max-w-500 w-max mx-auto slide-enter"
-          :style="{ '--enter-stage': 0, '--enter-step': '60ms' }"
-        >
-          <ProjectCard
-            v-for="p in currentFocus"
-            :key="p.name"
-            v-bind="p"
-          />
-        </div>
-
-        <div class="mt-16"></div>
-        <div
-          class="project-grid py-2 max-w-500 w-max mx-auto slide-enter"
-          :style="{ '--enter-stage': 1, '--enter-step': '60ms' }"
-        >
-          <ProjectCard
-            v-for="(p, i) in projects"
-            :key="p.name"
-            v-bind="p"
-            class="slide-enter"
-            :style="{ '--enter-stage': 2 + i, '--enter-step': '40ms' }"
-          />
+          <div
+            class="select-none relative h-18 mt-5 pointer-events-none slide-enter"
+            :style="{ '--enter-stage': cidx - 2, '--enter-step': '60ms' }"
+          >
+            <span
+              class="text-5em color-transparent absolute left--1rem top-0rem font-bold leading-1em stroke-text-1.5 stroke-text-hex-aaa op35 dark:op20"
+            >{{ key }}</span>
+          </div>
+          <div
+            class="project-grid py-2 max-w-500 w-max mx-auto"
+          >
+            <ProjectCard
+              v-for="(p, i) in projectGroups[key]"
+              :key="p.name"
+              v-bind="p"
+              class="slide-enter"
+              :style="{ '--enter-stage': 2 + i, '--enter-step': '40ms' }"
+            />
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- 侧栏目录（桌面端） -->
+    <div class="project-toc">
+      <div class="project-toc-anchor">
+        <i class="i-ri-menu-2-fill"></i>
+      </div>
+      <ul>
+        <li v-for="key of groupKeys" :key="key">
+          <a :href="`#${slug(key)}`">{{ key }}</a>
+        </li>
+      </ul>
     </div>
   </article>
 
