@@ -1,19 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
 import { useColorScheme } from '../composables/useColorScheme'
 
+const router = useRouter()
 const { toggle } = useColorScheme()
 const showScrollTop = ref(false)
 const isMobile = ref(false)
 
 const navItems = [
-  { to: '#/posts', title: '博客', icon: 'i-ri-article-line', text: '博客' },
-  { to: '#/projects', title: '项目', icon: 'i-ri-lightbulb-line', text: '项目' },
-  { to: '#/websites', title: '网站', icon: 'i-ri-global-line', text: '网站' },
-  { to: '#/photos', title: '摄影', icon: 'i-ri-camera-3-line', text: '摄影' },
-  { to: '#/paintings', title: '绘画', icon: 'i-ri-palette-line', text: '绘画' },
-  { to: '#/demos', title: '探索实验', icon: 'i-ri-screenshot-line', text: '探索实验' },
+  { to: '/posts', title: '博客', icon: 'i-ri-article-line', text: '博客' },
+  { to: '/projects', title: '项目', icon: 'i-ri-lightbulb-line', text: '项目' },
+  { to: '/websites', title: '网站', icon: 'i-ri-global-line', text: '网站' },
+  { to: '/photos', title: '摄影', icon: 'i-ri-camera-3-line', text: '摄影' },
+  { to: '/paintings', title: '绘画', icon: 'i-ri-palette-line', text: '绘画' },
+  { to: '/demos', title: '探索实验', icon: 'i-ri-screenshot-line', text: '探索实验' },
 ]
+
+function go(to: string, e: MouseEvent) {
+  // cmd/ctrl/shift + 点击 → 让浏览器走新标签页
+  if (e.metaKey || e.ctrlKey || e.shiftKey) return
+  e.preventDefault()
+  router.push(to)
+}
 
 function updateBreakpoint() {
   isMobile.value = window.innerWidth < 768
@@ -47,6 +56,7 @@ onBeforeUnmount(() => {
       focusable="false"
       aria-label="返回首页"
       title="Yiguo · 个人主页"
+      @click="(e) => go('/', e)"
     >
       <!-- 签名风格 "Yg" 标志：Y 的右臂顺势连到 g 的起笔，整体一气呵成 -->
       <svg
@@ -95,9 +105,10 @@ onBeforeUnmount(() => {
         <a
           v-for="item in navItems"
           :key="item.to"
-          :href="item.to"
+          :href="`#${item.to}`"
           :title="item.title"
           class="nav-link-item"
+          @click="(e) => go(item.to, e)"
         >
           <span v-if="!isMobile || !item.icon">
             {{ item.text }}

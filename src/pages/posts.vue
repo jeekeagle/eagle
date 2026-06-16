@@ -195,9 +195,10 @@ function langClass(lang?: 'zh' | 'en') {
 }
 
 .post-title {
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   line-height: 1.2em;
-  font-weight: 500;
+  font-weight: 700;
+  color: var(--fg-deeper);
 }
 
 .lang-badge {

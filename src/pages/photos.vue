@@ -14,7 +14,7 @@ const groupKeys = computed(() => Object.keys(photoGroups))
   </div>
 
   <article>
-    <div class="max-w-300 mx-auto slide-enter-content">
+    <div class="max-w-160 mx-auto slide-enter-content">
       <div
         v-for="(key, cidx) in groupKeys"
         :key="key"
