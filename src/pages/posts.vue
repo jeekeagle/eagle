@@ -27,10 +27,6 @@ function formatDate(iso: string) {
       <div class="prose m-auto mb-8 select-none animate-none op100">
         <div class="mb-0 flex flex-col sm:flex-row sm:gap-3 flex-wrap text-3xl">
           <router-link to="/posts" class="!border-none opacity-100 underline">博客</router-link>
-          <router-link to="/talks" class="!border-none opacity-20 hover:opacity-50">演讲</router-link>
-          <router-link to="/podcasts" class="!border-none opacity-20 hover:opacity-50">播客</router-link>
-          <router-link to="/demos" class="!border-none opacity-20 hover:opacity-50">实验</router-link>
-          <router-link to="/photos" class="!border-none opacity-20 hover:opacity-50">摄影</router-link>
         </div>
       </div>
 
@@ -79,7 +75,7 @@ function formatDate(iso: string) {
         href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
         style="color: inherit"
       >CC BY-NC-SA 4.0</a>
-      2021-{{ new Date().getFullYear() }} © 你的名字
+      2021-{{ new Date().getFullYear() }} © Yiguo
     </span>
     <div class="flex-auto"></div>
   </div>

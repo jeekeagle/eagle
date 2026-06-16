@@ -1,5 +1,5 @@
 /**
- * 博客文章 + 演讲数据（中文）
+ * 博客文章数据（中文）
  */
 export interface Post {
   slug: string
@@ -30,6 +30,22 @@ export const posts: Post[] = [
     desc: '记录我从零搭建个人站的过程，灵感来自 antfu.me。',
   },
   {
+    slug: 'ai-agent-shi-dai-de-gong-cheng-shi',
+    title: 'AI Agent 时代的工程师',
+    date: '2025-08-10',
+    readTime: 10,
+    tags: ['AI', 'Agent'],
+    desc: '一个工程师如何借助 Agent 变成「一人公司」。',
+  },
+  {
+    slug: 'ge-ren-zhi-shi-guan-li',
+    title: '个人知识管理：把思考变成可回溯的资产',
+    date: '2025-07-22',
+    readTime: 7,
+    tags: ['笔记', '方法论'],
+    desc: '我用 Get 笔记 + 双链构建自己的第二大脑。',
+  },
+  {
     slug: 'she-ji-ti-xi-bi-ji',
     title: '设计体系随笔',
     date: '2025-06-20',
@@ -44,48 +60,5 @@ export const posts: Post[] = [
     readTime: 5,
     tags: ['前端'],
     desc: '我在 Vue 项目里组织组件的几个原则。',
-  },
-  {
-    slug: 'kai-yuan-ke-chi-xu',
-    title: '谈谈开源可持续性',
-    date: '2024-11-12',
-    readTime: 7,
-    tags: ['开源'],
-    desc: '关于开源项目资助与维护的一点思考。',
-  },
-  {
-    slug: 'chuan-shuo-de-yi-zhu',
-    title: '发布是一门艺术',
-    date: '2024-07-30',
-    readTime: 4,
-    tags: ['方法论'],
-    desc: '为什么「做完」比「完美」更重要。',
-  },
-]
-
-export const talks: Post[] = [
-  {
-    slug: 'she-ji-gong-cheng',
-    title: '规模化设计工程',
-    date: '2025-10-12',
-    tags: ['演讲'],
-  },
-  {
-    slug: 'vue-da-jian',
-    title: '用 Vue 构建现代应用',
-    date: '2025-04-20',
-    tags: ['演讲'],
-  },
-  {
-    slug: 'kai-yuan-gu-shi',
-    title: '开源故事',
-    date: '2024-11-08',
-    tags: ['演讲'],
-  },
-  {
-    slug: 'kuai-su-fa-bu',
-    title: '快速发布，频繁发布',
-    date: '2024-05-30',
-    tags: ['演讲'],
   },
 ]

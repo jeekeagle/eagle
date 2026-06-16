@@ -4,7 +4,7 @@ import { demos } from '../data/content'
 
 <template>
   <div class="text-center prose m-auto mb-8">
-    <h1 class="mb-0 slide-enter-50">实验</h1>
+    <h1 class="mb-0 slide-enter-50">探索实验</h1>
   </div>
 
   <article>
@@ -46,7 +46,7 @@ import { demos } from '../data/content'
         href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
         style="color: inherit"
       >CC BY-NC-SA 4.0</a>
-      2021-{{ new Date().getFullYear() }} © 你的名字
+      2021-{{ new Date().getFullYear() }} © Yiguo
     </span>
     <div class="flex-auto"></div>
   </div>

@@ -65,7 +65,7 @@ const software = [
         href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
         style="color: inherit"
       >CC BY-NC-SA 4.0</a>
-      2021-{{ new Date().getFullYear() }} © 你的名字
+      2021-{{ new Date().getFullYear() }} © Yiguo
     </span>
     <div class="flex-auto"></div>
   </div>

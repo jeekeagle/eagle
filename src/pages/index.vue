@@ -1,86 +1,77 @@
 <script setup lang="ts">
-import { profile } from '../data/profile'
-import MagicLink from '../components/MagicLink.vue'
-
 const year = new Date().getFullYear()
+
+// 占位链接（用户后续可替换）
+const links = {
+  here: '#',            // 这里（项目页）
+  photography: '/#/photos', // 摄影
+  photosPage: '/#/photos',  // 这个页面（照片页）
+  gear: '/#/use',       // 常用工具
+  stack: '/#/use',      // 技术栈
+  skillsHub: '#',       // SkillsHub（未建）
+  fairytale: '#',       // 童话小镇（未建）
+}
 </script>
 
 <template>
   <div class="prose m-auto mb-8">
-    <h1 class="mb-0 slide-enter-50">{{ profile.name }}</h1>
+    <h1 class="mb-0 slide-enter-50">Yiguo</h1>
   </div>
 
   <article>
     <div class="prose m-auto slide-enter-content">
-      <p>{{ profile.bio }}</p>
-
       <p>
-        就职于
-        <MagicLink
-          v-for="w in profile.work"
-          :key="w.name"
-          :href="w.href"
-          :avatar="w.avatar"
-          :name="w.name"
-        />
-        <br />
-        我创造了
-        <MagicLink
-          v-for="c in profile.creator"
-          :key="c.name"
-          :href="c.href"
-          :avatar="c.avatar"
-          :name="c.name"
-        />
-        <br />
-        核心团队成员
-        <MagicLink
-          v-for="c in profile.coreTeam"
-          :key="c.name"
-          :href="c.href"
-          :avatar="c.avatar"
-          :name="c.name"
-        />
-        <br />
-        正在维护
-        <MagicLink
-          v-for="m in profile.maintaining"
-          :key="m.name"
-          :href="m.href"
-          :avatar="m.avatar"
-          :name="m.name"
-        />
+        你好！我是 Yiguo，你的朋友，一个智能时代的工程师。
       </p>
 
       <p>
-        构思酷点子并把它们变成现实，是我的热情所在。
+        在山东青岛工作。
+      </p>
+
+      <p>
         我热衷于打造让自己和他人更高效、享受过程的工具。
+      </p>
+
+      <p>
+        自我定位是一名 <abbr title="One-Person Company">OPC</abbr>，
+        借助 Agent 的力量，一个人就能完成过去需要团队才能做的事情。
         你可以在
-        <router-link to="/projects">这里看到我的全部项目</router-link>。
+        <a :href="links.here" class="font-semibold"><strong>这里</strong></a>
+        看到我的全部项目。
       </p>
 
       <p>
-        我会做
-        <router-link to="/talks">演讲</router-link>
-        ，写
-        <router-link to="/posts">博客文章</router-link>，
-        聊聊开源、写代码那些事。我还联合主持一档播客
-        <a href="https://example.com" target="_blank" rel="noopener"><em>播客名</em></a>
-        <span class="op75">（占位）</span>。
-        偶尔会在
-        <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
-        和
-        <a href="https://bilibili.com" target="_blank" rel="noopener">B 站</a>
-        做直播写代码。兴致来了，会在
-        <a href="https://100.antfu.me/" target="_blank" rel="noopener">100.antfu.me</a>
-        玩一些生成艺术和交互实验。
+        我会经常写
+        <a href="/#/posts">博客文章</a>，
+        聊聊 AI、Agent 架构、个人知识管理和个人成长的那些事。
+        我还喜欢看书和写书，把思考过程变成可以回溯的资产。
       </p>
 
       <p>
-        编程之外，我也喜欢摄影和旅行。照片会发到
-        <router-link to="/photos">这个页面</router-link>。
+        编程之外，我也喜欢
+        <a :href="links.photography" class="font-semibold"><strong>摄影</strong></a>
+        、旅行和 AI 画画。照片会发到
+        <a :href="links.photosPage" class="font-semibold"><strong>这个页面</strong></a>。
+      </p>
+
+      <p>
         如果你感兴趣，可以看看我的
-        <router-link to="/use">常用硬件 / 软件</router-link>。
+        <a :href="links.gear" class="font-semibold"><strong>常用工具</strong></a>
+        /
+        <a :href="links.stack" class="font-semibold"><strong>技术栈</strong></a>
+        /
+        <a :href="links.skillsHub" class="font-semibold"><strong>SkillsHub</strong></a>
+        。
+      </p>
+
+      <p>
+        家里有一个女儿，我很珍惜与女儿一起的时光。
+        也用笔记记录女儿的成长，
+        <a :href="links.fairytale" class="font-semibold"><strong>这个女儿的"童话小镇"</strong></a>。
+      </p>
+
+      <p>
+        如果你喜欢我做的东西，欢迎常来看看。
       </p>
 
       <div class="flex-auto"></div>
@@ -89,41 +80,31 @@ const year = new Date().getFullYear()
 
       <p>在以下平台找我</p>
       <p class="mt--2! flex flex-wrap gap-2">
-        <a
-          v-for="s in profile.socials"
-          :key="s.name"
-          :href="s.href"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="op75" :class="s.icon"></span>
-          {{ s.name }}
+        <a href="https://github.com/jeekeagle" target="_blank" rel="noopener">
+          <span class="op75 i-simple-icons-github"></span>
+          GitHub
+        </a>
+        <a href="https://zhihu.com" target="_blank" rel="noopener">
+          <span class="op75 i-simple-icons-zhihu"></span>
+          知乎
+        </a>
+        <a href="https://weibo.com" target="_blank" rel="noopener">
+          <span class="op75 i-simple-icons-sinaweibo"></span>
+          微博
+        </a>
+        <a href="https://x.com" target="_blank" rel="noopener">
+          <span class="op75 i-ri-twitter-x-fill"></span>
+          X
+        </a>
+        <a href="https://space.bilibili.com" target="_blank" rel="noopener">
+          <span class="op75 i-simple-icons-bilibili"></span>
+          B站
         </a>
       </p>
+
       <p>
         或者发邮件到
-        <span class="font-mono">hi<span class="i-carbon-at"></span>{{ profile.domain }}</span>
-      </p>
-
-      <hr />
-
-      <p>
-        如果你喜欢我做的东西，希望它能持续下去，
-        欢迎赞助我和相关生态，让开源走得更远。非常感谢！
-      </p>
-
-      <p class="flex flex-wrap items-center gap-2">
-        <a
-          v-for="sp in profile.sponsors"
-          :key="sp.name"
-          :href="sp.href"
-          target="_blank"
-          rel="noopener"
-          :class="sp.class"
-        >
-          <i :class="[sp.icon, 'group-hover:scale-110']"></i>
-          {{ sp.name }}
-        </a>
+        <span class="font-mono">hi<span class="i-carbon-at"></span>yiguo.dev</span>
       </p>
     </div>
   </article>
@@ -135,7 +116,7 @@ const year = new Date().getFullYear()
         href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
         style="color: inherit"
       >CC BY-NC-SA 4.0</a>
-      2021-{{ year }} © {{ profile.name }}
+      2021-{{ year }} © Yiguo
     </span>
     <div class="flex-auto"></div>
   </div>
