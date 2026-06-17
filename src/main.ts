@@ -6,8 +6,6 @@ import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 
 const Home = () => import('./pages/index.vue')
-const Posts = () => import('./pages/posts.vue')
-const Post = () => import('./pages/post.vue')
 const Projects = () => import('./pages/projects.vue')
 const Websites = () => import('./pages/websites.vue')
 const Photos = () => import('./pages/photos.vue')
@@ -15,14 +13,13 @@ const Paintings = () => import('./pages/paintings.vue')
 const Demos = () => import('./pages/demos.vue')
 const Use = () => import('./pages/use.vue')
 
-// GitHub Pages 不支持 SPA 路由 fallback（直接访问 /posts 会 404）
-// 用 hash mode 解决：URL 变成 /#/posts，所有路径都从 / 加载
+// GitHub Pages 不支持 SPA 路由 fallback（直接访问 /projects 会 404）
+// 用 hash mode 解决：URL 变成 /#/projects，所有路径都从 / 加载
+// 博客内容由外站 OpenWalk (wangyiguo.top) 提供，本地不管理
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: '/', component: Home },
-    { path: '/posts', component: Posts },
-    { path: '/posts/:slug', component: Post, props: true },
     { path: '/projects', component: Projects },
     { path: '/websites', component: Websites },
     { path: '/photos', component: Photos },

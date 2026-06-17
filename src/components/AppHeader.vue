@@ -8,13 +8,15 @@ const { toggle } = useColorScheme()
 const showScrollTop = ref(false)
 const isMobile = ref(false)
 
+// to: 内部路由用 '/path'，外部链接用完整 URL
+// external: true → 用 <a target="_blank">，新标签页打开
 const navItems = [
-  { to: '/posts', title: '博客', icon: 'i-ri-article-line', text: '博客' },
-  { to: '/projects', title: '项目', icon: 'i-ri-lightbulb-line', text: '项目' },
-  { to: '/websites', title: '网站', icon: 'i-ri-global-line', text: '网站' },
-  { to: '/photos', title: '摄影', icon: 'i-ri-camera-3-line', text: '摄影' },
-  { to: '/paintings', title: '绘画', icon: 'i-ri-palette-line', text: '绘画' },
-  { to: '/demos', title: '探索实验', icon: 'i-ri-screenshot-line', text: '探索实验' },
+  { to: 'https://www.wangyiguo.top/posts', title: '博客（OpenWalk）', icon: 'i-ri-article-line', text: '博客', external: true },
+  { to: '/projects', title: '项目', icon: 'i-ri-lightbulb-line', text: '项目', external: false },
+  { to: '/websites', title: '网站', icon: 'i-ri-global-line', text: '网站', external: false },
+  { to: '/photos', title: '摄影', icon: 'i-ri-camera-3-line', text: '摄影', external: false },
+  { to: '/paintings', title: '绘画', icon: 'i-ri-palette-line', text: '绘画', external: false },
+  { to: '/demos', title: '探索实验', icon: 'i-ri-screenshot-line', text: '探索实验', external: false },
 ]
 
 function go(to: string, e: MouseEvent) {
@@ -102,8 +104,9 @@ onBeforeUnmount(() => {
     <nav class="app-nav">
       <div class="spacer" />
       <div class="app-nav-right print:hidden">
+        <!-- 内部路由 -->
         <a
-          v-for="item in navItems"
+          v-for="item in navItems.filter(i => !i.external)"
           :key="item.to"
           :href="`#${item.to}`"
           :title="item.title"
@@ -112,6 +115,26 @@ onBeforeUnmount(() => {
         >
           <span v-if="!isMobile || !item.icon">
             {{ item.text }}
+          </span>
+          <i
+            v-if="isMobile"
+            :class="item.icon"
+          />
+        </a>
+
+        <!-- 外部链接：新标签页打开（带外链小箭头） -->
+        <a
+          v-for="item in navItems.filter(i => i.external)"
+          :key="item.to"
+          :href="item.to"
+          target="_blank"
+          rel="noopener noreferrer"
+          :title="item.title"
+          class="nav-link-item"
+        >
+          <span v-if="!isMobile || !item.icon" class="inline-flex items-center gap-1">
+            {{ item.text }}
+            <i class="i-ri-external-link-line text-xs op-50" />
           </span>
           <i
             v-if="isMobile"
