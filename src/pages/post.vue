@@ -29,6 +29,19 @@ const formattedDate = computed(() => {
   const d = new Date(post.value.date)
   return d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
 })
+
+// 上一篇 / 下一篇（基于 posts 数组顺序，posts.ts 顶部 = 最新）
+const currentIndex = computed(() => posts.findIndex(p => p.slug === route.params.slug))
+const prevPost = computed(() => currentIndex.value > 0 ? posts[currentIndex.value - 1] : null)
+const nextPost = computed(() => currentIndex.value >= 0 && currentIndex.value < posts.length - 1
+  ? posts[currentIndex.value + 1] : null)
+
+// 点击跳转到另一篇：和 AppHeader 同款，避免 router-link 在 hash 模式下的偶发不触发
+function go(to: string, e: MouseEvent) {
+  if (e.metaKey || e.ctrlKey || e.shiftKey) return
+  e.preventDefault()
+  router.push(to)
+}
 </script>
 
 <template>
@@ -37,7 +50,11 @@ const formattedDate = computed(() => {
       <!-- 返回链接 -->
       <div class="prose m-auto mt-8 mb-8 slide-enter animate-delay-500">
         <span class="font-mono op50">&gt; </span>
-        <router-link to="/posts" class="font-mono op50 hover:op75">返回博客列表</router-link>
+        <a
+          href="#/posts"
+          class="font-mono op50 hover:op75"
+          @click="(e) => go('/posts', e)"
+        >返回博客列表</a>
       </div>
 
       <div v-if="post">
@@ -71,22 +88,31 @@ const formattedDate = computed(() => {
   </article>
 
   <!-- 底部：上一篇 / 下一篇 + 版权 -->
-  <div v-if="post" class="prose m-auto mt-12 flex flex-wrap gap-4">
-    <router-link
-      v-if="prevPost"
-      :to="`#/posts/${prevPost.slug}`"
-      class="btn btn-amber"
-    >
-      ← {{ prevPost.title }}
-    </router-link>
-    <router-link
-      v-if="nextPost"
-      :to="`#/posts/${nextPost.slug}`"
-      class="btn btn-amber ml-auto"
-    >
-      {{ nextPost.title }} →
-    </router-link>
-  </div>
+  <nav v-if="post" class="prose m-auto mt-12 mb-6">
+    <div class="flex flex-wrap items-center gap-3">
+      <a
+        v-if="prevPost"
+        :href="`#/posts/${prevPost.slug}`"
+        class="post-nav-link post-nav-prev"
+        @click="(e) => go(`/posts/${prevPost.slug}`, e)"
+      >
+        <span class="post-nav-arrow">←</span>
+        <span class="post-nav-meta">上一篇</span>
+        <span class="post-nav-title">{{ prevPost.title }}</span>
+      </a>
+
+      <a
+        v-if="nextPost"
+        :href="`#/posts/${nextPost.slug}`"
+        class="post-nav-link post-nav-next"
+        @click="(e) => go(`/posts/${nextPost.slug}`, e)"
+      >
+        <span class="post-nav-meta">下一篇</span>
+        <span class="post-nav-title">{{ nextPost.title }}</span>
+        <span class="post-nav-arrow">→</span>
+      </a>
+    </div>
+  </nav>
 
   <div class="mt-10 mb-6 prose m-auto flex slide-enter animate-delay-1200 copyright">
     <span class="text-sm op50">
@@ -100,24 +126,6 @@ const formattedDate = computed(() => {
     <div class="flex-auto"></div>
   </div>
 </template>
-
-<script lang="ts">
-import { computed as cmp } from 'vue'
-import { posts as allPosts } from '../data/posts'
-
-export default {
-  computed: {
-    prevPost() {
-      const idx = allPosts.findIndex(p => p.slug === this.$route.params.slug)
-      return idx > 0 ? allPosts[idx - 1] : null
-    },
-    nextPost() {
-      const idx = allPosts.findIndex(p => p.slug === this.$route.params.slug)
-      return idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : null
-    },
-  },
-}
-</script>
 
 <style scoped>
 .post-body {
@@ -252,5 +260,58 @@ export default {
 .post-body :deep(th) {
   background: #8881;
   font-weight: 600;
+}
+
+/* ========== 上一篇 / 下一篇导航 ========== */
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #8883;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+  transition: all 0.2s;
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.post-nav-link:hover {
+  background: #8881;
+  border-color: #8885;
+  transform: translateY(-1px);
+}
+
+.post-nav-prev {
+  text-align: left;
+}
+
+.post-nav-next {
+  text-align: right;
+  margin-left: auto;
+}
+
+.post-nav-arrow {
+  font-size: 1.1rem;
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.post-nav-meta {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.post-nav-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--fg-deeper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
